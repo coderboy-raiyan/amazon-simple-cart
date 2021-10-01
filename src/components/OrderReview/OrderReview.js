@@ -1,6 +1,7 @@
 import React from "react";
+import { useHistory } from "react-router";
 import useProducts from "../../Hooks/useProducts/useProducts";
-import { deleteFromDb } from "../../utilities/fakedb";
+import { clearTheCart, deleteFromDb } from "../../utilities/fakedb";
 import ReviewItem from "../ReviewItem/ReviewItem";
 import useCart from "./../../Hooks/useCart";
 import Cart from "./../Cart/Cart";
@@ -12,6 +13,13 @@ const OrderReview = () => {
     let newProduct = cart.filter((product) => product.key !== key);
     setCart(newProduct);
     deleteFromDb(key);
+  };
+  const history = useHistory();
+
+  const handlePlaceOrder = () => {
+    history.push("./placeorder");
+    setCart([]);
+    clearTheCart();
   };
   return (
     <div className="main-product-container">
@@ -25,7 +33,9 @@ const OrderReview = () => {
         ))}
       </div>
       <div className="cart-container">
-        <Cart cart={cart}></Cart>
+        <Cart cart={cart}>
+          <button onClick={handlePlaceOrder}>Place Order</button>
+        </Cart>
       </div>
     </div>
   );

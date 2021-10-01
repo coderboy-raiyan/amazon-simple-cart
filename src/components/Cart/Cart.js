@@ -1,9 +1,8 @@
 import React from "react";
-import { Link } from "react-router-dom";
 import "./Cart.css";
 const Cart = (props) => {
   const { cart } = props;
-
+  console.log(props);
   let totalLength = 0;
   let total = 0;
   for (let product of cart) {
@@ -38,11 +37,7 @@ const Cart = (props) => {
 
       <h3>Order Total : $ {grandTotal.toFixed(2)}</h3>
 
-      <div className="btn-grp">
-        <Link to="orderreview">
-          <button>Review your order</button>
-        </Link>
-      </div>
+      <div className="btn-grp">{props.children}</div>
     </div>
   );
 };
